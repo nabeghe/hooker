@@ -1,0 +1,24 @@
+{
+  "name": "nabeghe/hooker",
+  "description": "A simple hook system library (actions and filters) based on Symfony EventDispatcher.",
+  "type": "library",
+  "version": "0.2.0",
+  "homepage": "https://github.com/nabeghe/hooker",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Nabeghe\\Hooker\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Hadi Akbarzadeh",
+      "email": "hadicoder@gmail.com",
+      "homepage": "https://elatel.ir",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "symfony/event-dispatcher": "^7.1"
+  }
+}
