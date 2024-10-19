@@ -19,6 +19,7 @@
     }
   ],
   "require": {
+    "php": ">=8.2",
     "symfony/event-dispatcher": "^7.1"
   }
 }
