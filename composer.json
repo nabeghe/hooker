@@ -2,7 +2,6 @@
   "name": "nabeghe/hooker",
   "description": "A simple hook system library (actions and filters) based on Symfony EventDispatcher.",
   "type": "library",
-  "version": "0.2.0",
   "homepage": "https://github.com/nabeghe/hooker",
   "license": "MIT",
   "autoload": {

@@ -22,13 +22,13 @@ Check the examples folder in the repositiry.
 require 'vendor/autoload.php';
 
 use Nabeghe\Hooker\Hooker;
-use Nabeghe\Hooker\Action;
+use Nabeghe\Hooker\Hook;
 
 $hooker = new Hooker();
 
 $hooker->setDefaultArgToHooks('protocol', 'https://');
 
-$hooker->listen('your_custom_action_name', function (Action $action) {
+$hooker->listen('your_custom_action_name', function (Hook $action) {
     echo $action['protocol'].$action['url'].PHP_EOL;
 }, 2);
 
@@ -41,16 +41,16 @@ $hooker->action('your_custom_action_name', ['url' => 'https://github.com/nabeghe
 require 'vendor/autoload.php';
 
 use Nabeghe\Hooker\Hooker;
-use Nabeghe\Hooker\Filter;
+use Nabeghe\Hooker\Hook;
 
 $hooker = new Hooker();
 
-$hooker->listen('your_custom_action_name', function (Filter $filter) {
+$hooker->listen('your_custom_filter_name', function (Hook $filter) {
     if ($filter->getValue() === null) {
         $filter->setValue(8 + $filter['default']);
     }
 });
 
-$value = $hooker->filter('your_custom_action_name', null, ['default' => 5]);
+$value = $hooker->filter('your_custom_filter_name', null, ['default' => 5]);
 echo $value; // 13
 ```

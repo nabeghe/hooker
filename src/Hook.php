@@ -13,10 +13,46 @@ class Hook extends \Symfony\Contracts\EventDispatcher\Event implements \ArrayAcc
     }
 
     /**
+     * Filtered value.
+     */
+    protected mixed $value;
+
+    /**
+     * Get filtered value.
+     */
+    public function getValue(): mixed
+    {
+        return $this->value;
+    }
+
+    /**
+     * Changes filtered value.
+     * @param  mixed  $value
+     */
+    public function setValue(mixed $value): void
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @param  mixed|null  $value
+     * @return static|mixed
+     */
+    public function value(mixed $value = null): mixed
+    {
+        if (func_num_args() === 0) {
+            return $this->value;
+        }
+
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
      * Constructor.
-     * @param  string  $hookName Hook name.
-     * @param  array|null  $hookArgs Optional. Hook arguments. The keys of this array can be accessed through dynamic fields as well as by index. Default null.
-     * @param  \Tueen\Tueen|null  $bot Optional. Bot object. Default null.
+     * @param  string  $hookName  Hook name.
+     * @param  array  $hookArgs  Optional. Hook arguments. The keys of this array can be accessed through dynamic fields as well as by index. Default null.
      */
     public function __construct(protected string $hookName, protected array $hookArgs = [])
     {
@@ -29,22 +65,28 @@ class Hook extends \Symfony\Contracts\EventDispatcher\Event implements \ArrayAcc
 
     public function offsetGet(mixed $offset): mixed
     {
-        return $this->hookArgs[$offset] ?? null;
+        return $this->$offset;
     }
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->hookArgs[$offset] = $value;
+        $this->$offset = $value;
     }
 
     public function offsetUnset(mixed $offset): void
     {
-        unset($this->$offset);
+        if (isset($this->hookArgs[$offset])) {
+            unset($this->hookArgs[$offset]);
+        }
     }
 
-    public function __get(string $name)
+    public function &__get(string $name)
     {
-        return $this->hookArgs[$name] ?? null;
+        if (!isset($this->hookArgs[$name])) {
+            $this->hookArgs[$name] = null;
+        }
+
+        return $this->hookArgs[$name];
     }
 
     public function __set(string $name, $value): void
@@ -55,9 +97,10 @@ class Hook extends \Symfony\Contracts\EventDispatcher\Event implements \ArrayAcc
     public function __call(string $name, array $arguments)
     {
         if (isset($arguments[0])) {
-            $this->hookArgs[$name] = $arguments[0];
+            $this->$name = $arguments[0];
             return $this;
         }
-        return $this->hookArgs[$name] ?? null;
+
+        return $this->$name;
     }
 }

@@ -1,7 +1,7 @@
 <?php require '../vendor/autoload.php';
 
 use Nabeghe\Hooker\Hooker;
-use Nabeghe\Hooker\Action;
+use Nabeghe\Hooker\Hook as Action;
 
 $hooker = new Hooker();
 

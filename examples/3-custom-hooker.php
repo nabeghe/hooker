@@ -1,6 +1,6 @@
 <?php require '../vendor/autoload.php';
 
-use Nabeghe\Hooker\Action;
+use Nabeghe\Hooker\Hook as Action;
 
 class CustomHooker
 {
