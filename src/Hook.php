@@ -49,6 +49,16 @@ class Hook extends \Symfony\Contracts\EventDispatcher\Event implements \ArrayAcc
         return $this;
     }
 
+    public function valueExists(): bool
+    {
+        return $this->value !== null;
+    }
+
+    public function valueType(): string
+    {
+        return gettype($this->value);
+    }
+
     /**
      * Constructor.
      * @param  string  $hookName  Hook name.
