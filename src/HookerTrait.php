@@ -32,12 +32,14 @@ trait HookerTrait
         $this->hooksDefaultArgs[$name] = $value;
     }
 
-    public function removeDefaultArgFromHooks(mixed $name, mixed $value): void
+    public function removeDefaultArgFromHooks(mixed $name): void
     {
-        unset($this->hooksDefaultArgs[$name]);
+        if (isset($this->hooksDefaultArgs)) {
+            unset($this->hooksDefaultArgs[$name]);
+        }
     }
 
-    public function clearHooksDefaultArgs(mixed $name, mixed $value): void
+    public function clearHooksDefaultArgs(): void
     {
         $this->hooksDefaultArgs = [];
     }
